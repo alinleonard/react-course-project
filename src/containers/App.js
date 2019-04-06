@@ -2,8 +2,15 @@ import React, { Component } from 'react';
 import classes from  './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
+import withClass from '../hoc/WithClass';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    console.log('[App.js] contructor');
+  }
+
   state = {
     persons: [
       { id: '21', name: 'Max', age: 28 },
@@ -12,6 +19,15 @@ class App extends Component {
     ],
     otherState: 'other value',
     showPersons: false
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
   }
 
   nameChangedHandler = (event, id) => {
@@ -43,6 +59,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('[App.js] render');
     let persons = null;
 
     if (this.state.showPersons) {
@@ -53,12 +70,16 @@ class App extends Component {
     }
 
     return (
-      <div className={classes.App}>
-        <Cockpit persons={this.state.persons} showPersons={this.state.showPersons} clicked={this.togglePersonsHandler} />
-        {persons}
-      </div>
+      <React.Fragment>
+          <Cockpit 
+            title={this.props.appTitle} 
+            persons={this.state.persons} 
+            showPersons={this.state.showPersons} 
+            clicked={this.togglePersonsHandler} />
+          {persons}
+      </React.Fragment>
     );
   }
 }
 
-export default App;
+export default withClass(App, classes.App);

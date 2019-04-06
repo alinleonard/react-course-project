@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import classes from './Cockpit.module.css';
 
 const cockpit = ( props ) => {
+    useEffect(() => {
+        
+    });
 
     let assignedClasses = [];
     let btnClass = '';
@@ -19,7 +22,7 @@ const cockpit = ( props ) => {
 
     return (
         <div className={classes.Cockpit}>
-            <h1>Hi, I'm a React App</h1>
+            <h1>{props.title}</h1>
             <p className={assignedClasses.join(' ')}>This is really working!</p>
             <button className={btnClass} onClick={props.clicked}>Toggle Persons</button>
         </div>
