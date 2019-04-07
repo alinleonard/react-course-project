@@ -1,6 +1,7 @@
 import React from 'react';
 import Person from './Person/Person';
 
+
 const persons = (props) => {
   console.log('[Person.js] rendering...')
   return props.persons.map( (person, index) => {

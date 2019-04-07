@@ -3,6 +3,7 @@ import classes from  './App.module.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import withClass from '../hoc/WithClass';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
 
@@ -18,7 +19,8 @@ class App extends Component {
       { id: '212', name: 'Stephanie', age: 26}
     ],
     otherState: 'other value',
-    showPersons: false
+    showPersons: false,
+    authenticated: false
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -58,6 +60,10 @@ class App extends Component {
     this.setState({ showPersons: !doesShow });
   }
 
+  loginHandler = () => {
+
+  }
+
   render() {
     console.log('[App.js] render');
     let persons = null;
@@ -71,12 +77,14 @@ class App extends Component {
 
     return (
       <React.Fragment>
+        <AuthContext.Provider value={{authenticated: this.state.authenticated, login: this.loginHandler}}>
           <Cockpit 
             title={this.props.appTitle} 
             persons={this.state.persons} 
             showPersons={this.state.showPersons} 
             clicked={this.togglePersonsHandler} />
           {persons}
+        </AuthContext.Provider>
       </React.Fragment>
     );
   }
